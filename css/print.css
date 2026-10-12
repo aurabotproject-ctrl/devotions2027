@@ -1,0 +1,17 @@
+#print-root{display:none}
+/* Morninglight 2027 — print (lesson plans, take-home cards) */
+@media print{
+  @page{size:A4;margin:14mm}
+  html,body{background:#fff!important;color:#000!important;font-size:11pt}
+  body:not(.printing) > *:not(.modal){display:none!important}
+  body.printing > *:not(#print-root){display:none!important}
+  body.printing #print-root{display:block!important}
+  .ink-bg,#menu-canvas,#stage-wrap{display:none!important}
+  .modal{position:static;background:none;padding:0;display:block}
+  .modal-card{box-shadow:none;border:0;width:auto;padding:0;animation:none}
+  .modal-card .close,.modal-actions,.no-print{display:none!important}
+  .lp-table{font-size:9.5pt}
+  .lp-table tr{page-break-inside:avoid}
+  .th-card{page-break-inside:avoid;box-shadow:none}
+  .chip{border:1px solid #000;background:#fff!important;color:#000!important}
+}

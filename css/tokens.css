@@ -1,0 +1,23 @@
+/* Morninglight 2027 — design tokens */
+:root{
+  --ink:#0B0B0F; --ink-2:#15151c; --ink-3:#22222c;
+  --paper:#F6F1E6; --paper-2:#EDE5D3; --white:#FFFFFF;
+  --honey:#F2C77B; --honey-deep:#D99F3D; --sky:#7BA7D9; --sky-deep:#4A7AB5;
+  --acc:#FFB547; --acc2:#FF7A3D;           /* overwritten per term */
+  --gold:#FFD36B;
+  --look:#5CC8FF; --think:#FFB547; --dig:#FF6B8B; --live:#7CE38B;
+  --border:3px solid var(--ink);
+  --shadow:6px 6px 0 var(--ink);
+  --shadow-lg:10px 10px 0 var(--ink);
+  --f-comic:"Bangers","Impact","Arial Black",sans-serif;
+  --f-head:"Baloo 2","Trebuchet MS","Arial Rounded MT Bold",sans-serif;
+  --f-body:"Atkinson Hyperlegible","Verdana","Segoe UI",sans-serif;
+  --f-hand:"Caveat","Comic Sans MS","Marker Felt",cursive;
+  --ts:1;                                  /* text-size setting multiplier */
+  --ease-pop:cubic-bezier(.34,1.56,.64,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+body[data-term="t1"]{ --acc:#FFB547; --acc2:#FF7A3D; }
+body[data-term="t2"]{ --acc:#5CA8FF; --acc2:#1D5FD1; }
+body[data-term="t3"]{ --acc:#6BCB77; --acc2:#1E8E5A; }
+body[data-term="t4"]{ --acc:#FF5A4F; --acc2:#C21F3A; }

@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8"><title>Comic panel marker</title>
+<style>body{font-family:system-ui;margin:1rem;background:#222;color:#eee}#wrap{position:relative;display:inline-block;margin-top:1rem;user-select:none}img{max-height:82vh;display:block}
+.r{position:absolute;border:3px solid #f33;background:rgba(255,50,50,.12);color:#f33;font:bold 20px system-ui;pointer-events:none}textarea{width:100%;height:9rem;margin-top:1rem;font-family:monospace}button{padding:.4rem .8rem;margin-right:.4rem}</style>
+<h2>Comic panel marker</h2>
+<p>1) Choose a comic page image (e.g. <code>images/t2/w05/t2w05-comic.webp</code>). 2) Drag a rectangle round each panel <b>in reading order</b>. 3) Copy the JSON, and paste it into <code>data/comic-panels.js</code> inside the object, e.g. <code>"t2w05-comic": {"manual":true,"panels":[…]}</code>.</p>
+<input type="file" id="f" accept="image/*"> <button id="undo">Undo last</button> <button id="clear">Clear</button> <button id="copy">Copy JSON</button>
+<div id="wrap"><img id="im" hidden></div><textarea id="out" readonly></textarea>
+<script>
+var im=document.getElementById("im"),wrap=document.getElementById("wrap"),out=document.getElementById("out"),R=[],cur=null,sx,sy,name="t?w??-comic";
+document.getElementById("f").onchange=function(e){var f=e.target.files[0];if(!f)return;name=f.name.replace(/\.[^.]+$/,"");im.src=URL.createObjectURL(f);im.hidden=false;R=[];draw()};
+function pos(e){var b=im.getBoundingClientRect();return[Math.min(1,Math.max(0,(e.clientX-b.left)/b.width)),Math.min(1,Math.max(0,(e.clientY-b.top)/b.height))]}
+wrap.onmousedown=function(e){e.preventDefault();var p=pos(e);sx=p[0];sy=p[1];cur=[sx,sy,0,0]};
+window.onmousemove=function(e){if(!cur)return;var p=pos(e);cur=[Math.min(sx,p[0]),Math.min(sy,p[1]),Math.abs(p[0]-sx),Math.abs(p[1]-sy)];draw()};
+window.onmouseup=function(){if(cur&&cur[2]>.03&&cur[3]>.03)R.push(cur.map(function(v){return Math.round(v*1e4)/1e4}));cur=null;draw()};
+document.getElementById("undo").onclick=function(){R.pop();draw()};document.getElementById("clear").onclick=function(){R=[];draw()};
+document.getElementById("copy").onclick=function(){out.select();document.execCommand("copy")};
+function draw(){[].slice.call(wrap.querySelectorAll(".r")).forEach(function(n){n.remove()});R.concat(cur?[cur]:[]).forEach(function(r,i){var d=document.createElement("div");d.className="r";d.textContent=" "+(i+1);d.style.cssText="left:"+r[0]*100+"%;top:"+r[1]*100+"%;width:"+r[2]*100+"%;height:"+r[3]*100+"%";wrap.appendChild(d)});
+out.value='"'+name+'": {"manual": true, "panels": '+JSON.stringify(R)+'}'}
+</script>
